@@ -9,7 +9,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "pageObjects-chrome": "npx playwright test tests/pageObjects.spec.ts --project=chromium"
+    "pageObjects-chrome": "npx playwright test pageObjects.spec.ts --project=chromium"
   },
   "dependencies": {
     "@angular/animations": "^14.2.12",
