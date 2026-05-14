@@ -37,6 +37,12 @@ test('parameterized methods', async ({page})=>{
 
 
 })
+test.only('testing with argos ci', async ({page})=>{
+    const pm = new PageManager(page)
+    await pm.navigateTo().formLayoutsPage()
+    await pm.navigateTo().datePickerPage()
+})
+
     // convert screenshots for other applications
     // const buffer = await page.screenshot()
     // console.log(buffer.toString('base64'))
