@@ -1,7 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 import type { testOptions } from './testOptions';
-
-
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -27,6 +25,14 @@ export default defineConfig<testOptions>({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   // create a JSON for downstream file, an array of reporters, doesn't need just one
   reporter: [
+    process.env.CI ? ["dot"] : ["list"],
+    [
+      "@argos-ci/playwright/reporter",
+      {
+        // Upload to Argos on CI only.
+        uploadToArgos: !!process.env.CI
+      },
+    ],
     ['json',{outputFile: 'test-results/jsonReport.json'}],
     ['junit',{outputFile: 'test-results/junitReport.xml'}],
     ['html']
@@ -41,7 +47,8 @@ export default defineConfig<testOptions>({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     actionTimeout: 15000,
-    navigationTimeout: 15000
+    navigationTimeout: 15000,
+    screenshot: "only-on-failure"
   },
 
   /* Configure projects for major browsers */
@@ -88,17 +95,11 @@ export default defineConfig<testOptions>({
     }
 
   ],
-// playwright will run the server
+/* Run your local dev server before starting the tests */
   webServer: {
     command: 'npm run start',
     url: 'http://localhost:4200/',
     reuseExistingServer: true
   }
 
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });

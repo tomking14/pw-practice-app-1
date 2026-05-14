@@ -1,6 +1,7 @@
 import {test, expect} from '@playwright/test'
 import { PageManager } from '../page-objects/page-manager'
 import {faker} from '@faker-js/faker'
+import { argosScreenshot } from "@argos-ci/playwright";
 
 test.beforeEach(async({page}) =>{
     await page.goto('http://localhost:4200/')
@@ -40,7 +41,9 @@ test.beforeEach(async({page}) =>{
 test('testing with argos ci', async ({page})=>{
     const pm = new PageManager(page)
     await pm.navigateTo().formLayoutsPage()
+    await argosScreenshot(page, "form layouts page");
     await pm.navigateTo().datePickerPage()
+    await argosScreenshot(page, "date picker page");
 })
 
     // convert screenshots for other applications
