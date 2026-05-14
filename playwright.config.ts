@@ -31,7 +31,7 @@ export default defineConfig<testOptions>({
       {
         // Upload to Argos on CI only.
         uploadToArgos: !!process.env.CI,
-        token: "<argos_4o252841fzrdaq57m3ttgfl5ybp7ymerg6",
+        token: "argos_4o252841fzrdaq57m3ttgfl5ybp7ymerg6",
       },
     ],
     ['json',{outputFile: 'test-results/jsonReport.json'}],
